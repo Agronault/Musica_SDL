@@ -26,7 +26,7 @@ Mix_Chunk * load_music(char const file[40]){
     return music;
 }
 
-void play_music(Mix_Chunk * music, int channel, int loop) {
+void play_music(Mix_Chunk * music, int channel, int loop) {//não use o canal 99, reservado para efeitos sonoros
     int canal;
 
     Mix_HaltChannel(channel);
@@ -37,6 +37,17 @@ void play_music(Mix_Chunk * music, int channel, int loop) {
     }
 }
 
-void parar_musica(int channel) {
+void play_SFX(Mix_Chunk * sfx){
+    int canal;
+
+    Mix_HaltChannel(99);
+    canal = Mix_PlayChannel(99, sfx, 1);
+
+    if (canal == -1) {
+        printf("Não foi possível inicializar efeito: %s\n", Mix_GetError());
+    }
+}
+
+void stop_music(int channel) {
     Mix_HaltChannel(channel);
 }
